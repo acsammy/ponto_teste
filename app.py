@@ -7,7 +7,7 @@ from resources.employee import EmployeeModel, Employees, Employee
 from resources.point import Point, PointModel, PointstDay
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5533/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://docker:myP4assWord@localhost:5533/company'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['JWT_SECRET_KEY'] = 'DontTellAnyone'
