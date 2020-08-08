@@ -7,9 +7,8 @@ class UserModel(banco.Model):
   name = banco.Column(banco.String)
   email = banco.Column(banco.String)
   password = banco.Column(banco.String)
-  admin = banco.Column(banco.Integer)
 
-  def __init__(self, name, email, password, admin):
+  def __init__(self, name, email, password):
     self.name = name
     self.email = email
     self.password = password
@@ -19,8 +18,7 @@ class UserModel(banco.Model):
     return {
       'id' : self.id,
       'name' : self.name,
-      'email' : self.email,
-      'admin' : self.admin
+      'email' : self.email
     }
   
   @classmethod
@@ -41,11 +39,10 @@ class UserModel(banco.Model):
     banco.session.add(self)
     banco.session.commit()
 
-  def update(self, name, email, password, admin):
+  def update(self, name, email, password):
     self.name = name
     self.email = email
     self.password = password
-    self.admin = admin
 
   def delete(self): 
     banco.session.delete(self)

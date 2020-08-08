@@ -21,16 +21,14 @@ class EmployeeModel(banco.Model):
       'points' : [point.json() for point in self.points]
     }
   
-  @classmethod
-  def find_employee(cls, id):
-    employee = cls.query.filter_by(id=id).first()
+  def find_employee(self, id):
+    employee = banco.Query.filter_by(id=id).first()
     if employee:
       return employee
     return None
   
-  @classmethod
-  def find_employee_name(cls, name):
-    employee = cls.query.filter_by(name=name).first()
+  def find_employee_name(self, name):
+    employee = banco.Query.filter_by(name=name).first()
     if employee:
       return employee
     return None

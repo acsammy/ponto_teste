@@ -7,7 +7,6 @@ attributes = reqparse.RequestParser()
 attributes.add_argument('name', type=str)
 attributes.add_argument('email', type=str, required=True, help="Email is required.")
 attributes.add_argument('password', type=str, required=True, help="Password is required.")
-attributes.add_argument('admin', type=int)
 
 class Users(Resource):
   def get(self):

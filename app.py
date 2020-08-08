@@ -3,11 +3,11 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
 from resources.user import Users, User, UserRegister, UserLogin
-from resources.employee import EmployeeModel, Employees, Employee
-from resources.point import Point, PointModel, PointstDay
+from resources.employee import Employees, Employee
+from resources.point import Point
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://docker:myP4assWord@localhost:5533/company'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://docker:myP4assWord@localhost:5432/company'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['JWT_SECRET_KEY'] = 'DontTellAnyone'
@@ -20,18 +20,15 @@ jwt = JWTManager(app)
 def cria_banco():
   banco.create_all()
 
-
-
 #routes
 api.add_resource(Users, '/users')
 api.add_resource(User, '/users/<int:id>')
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 
-api.add_resource(Employee, "/employees, /employees/<int:id>") # cadastra funcionario
+api.add_resource(Employee, "/employees/new") # , /employees/<int:id>") # cadastra funcionario
 api.add_resource(Employees, '/employees') # retorna todos funcionarios
-api.add_resource(Employee, ) # retorna funcionario especifico
-api.add_resource(PointstDay, '/employees/<int:id>/<string:date>') # retorna funcionario e pontos do dia
+# api.add_resource(PointstDay, '/employees/<int:id>/<string:date>') # retorna funcionario e pontos do dia
 
 #api.add_resource(Points, '/points')
 api.add_resource(Point, '/points')

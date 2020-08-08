@@ -4,8 +4,8 @@ from flask_jwt_extended import jwt_required
 from models.employee import EmployeeModel
 
 attributes = reqparse.RequestParser()
-attributes.add_argument('name', type=str)
-attributes.add_argument('function', type=str)
+attributes.add_argument('name', type=str, required=True)
+attributes.add_argument('function', type=str, required=True)
 
 class Employees(Resource):
   @jwt_required
@@ -16,20 +16,11 @@ class Employees(Resource):
 
 class Employee(Resource):
   @jwt_required
-  def get(self, id):
-    employee = EmployeeModel.find_employee(id)
-    if employee:
-      return employee.json()
-    return {
-      'message' : 'Employee not found.'
-    }, 404
-
-  @jwt_required
   def post(self):
     data = attributes.parse_args()
-    if EmployeeModel.find_employee_name(data['name']):
+    if EmployeeModel.find_employee_name(data.get('name')):
       return {
-        'message' : 'Employee {} already exists.'.format(data['name'])
+        'message' : 'Employee {} already exists.'.format(data.get('name'))
       }, 404
     
     employee = EmployeeModel(**data)
@@ -41,6 +32,15 @@ class Employee(Resource):
         'message' : 'An error occured trying to create employee.'
       },500
     return employee.json(), 201
+
+  @jwt_required
+  def get(self, id):
+    employee = EmployeeModel.find_employee(id)
+    if employee:
+      return employee.json()
+    return {
+      'message' : 'Employee not found.'
+    }, 404
 
   @jwt_required
   def put(self, id):

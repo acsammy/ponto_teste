@@ -6,7 +6,7 @@ from models.employee import EmployeeModel
 attributes = reqparse.RequestParser()
 attributes.add_argument('date', type=str, required=True)
 attributes.add_argument('hour', type=str, required=True)
-attributes.add_argument('employee_id', type=int)
+attributes.add_argument('employee_id', type=int, required=True)
 
 class Point(Resource):
   def post(self):
@@ -16,11 +16,6 @@ class Point(Resource):
         'message' : 'Employee not found.'
       }, 400
 
-    points = PointModel.find_day(data.get('date'))
-    if (len(points) >= 6):
-      return {
-        'message' : 'You can`t register more than six points per day.'
-      }, 400
     point = PointModel(**data)
     
     try:
